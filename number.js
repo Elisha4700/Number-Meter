@@ -2,7 +2,10 @@
 var Num = {
  	settings : {
  		animation_speed : 1000,
- 		list_template : '		<ul id="--index--"><li class="first">0</li><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li class="nine">9</li><li>0</li><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li class="nine">9</li></ul>' 	},
+ 		list_template : '<ul id="--index--"><li class="first">0</li><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li class="nine">9</li><li>0</li><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li class="nine">9</li></ul>',
+ 		effect : 'plain', // can be: 'meter', 'plain', 'slot', 'linear', 'random'
+ 		direction : 'up' // direction the numbers scroll: can be either: 'up' or 'down'
+ 	},
 
 	init : function() {
 
@@ -69,6 +72,8 @@ var Num = {
 		});
 
 	}
+
+
 
 }
 

@@ -6,11 +6,28 @@
 
 <body>
 
+
 	<input type="text" id="n" value="1234" />
 	<input type="button" id="ok" value="OK" />
-	<input type="button" id="move" value="Move" />
+	<select id="effect">
+		<option value="plain" selected="selected">Plain</option>
+		<option value="meter">Meter</option>
+		<option value="random">Random</option>
+		<option value="slot">Slot Machine</option>
+	</select>
 	<br>
 
+	<span>Direction: </span>
+	<input type="radio" name="direction" value="up" id="up"/>
+	<label for="up">Up</label>
+
+	<input type="radio" name="direction" value="down" id="down"/>
+	<label for="down">Down</label>
+
+	<input type="checkbox" id="add-commas" /><label for="add-commas">Add Commas</label>
+	<br>
+
+	<!-- 
 	<input type="text" id="n-loops" value="3" />
 	<input type="button" id="loop" value="Loop" />
 	<br>
@@ -19,78 +36,12 @@
 	<input type="text" id="goto-n" value="5" />
 	<input type="button" id="go" value="Go To" />
 	<br>
+	-->
 
 	<input type="button" id="reset" value="Reset" />
 
-
-
-
-
-	<div id="number">
-		<!-- <ul id="index-1">
-			<li class="first">0</li>
-			<li>1</li>
-			<li>2</li>
-			<li>3</li>
-			<li>4</li>
-			<li>5</li>
-			<li>6</li>
-			<li>7</li>
-			<li>8</li>
-			<li class="nine">9</li>
-			<li>0</li>
-			<li>1</li>
-			<li>2</li>
-			<li>3</li>
-			<li>4</li>
-			<li>5</li>
-			<li>6</li>
-			<li>7</li>
-			<li>8</li>
-			<li class="nine">9</li>
-		</ul> -->
-
-		<!-- <ul id="index-2">
-			<li>0</li>
-			<li>1</li>
-			<li>2</li>
-			<li>3</li>
-			<li>4</li>
-			<li>5</li>
-			<li>6</li>
-			<li>7</li>
-			<li>8</li>
-			<li>9</li>
-		</ul>
-
-		<ul id="index-3">
-			<li>0</li>
-			<li>1</li>
-			<li>2</li>
-			<li>3</li>
-			<li>4</li>
-			<li>5</li>
-			<li>6</li>
-			<li>7</li>
-			<li>8</li>
-			<li>9</li>
-		</ul>
-
-		<ul id="index-4">
-			<li>0</li>
-			<li>1</li>
-			<li>2</li>
-			<li>3</li>
-			<li>4</li>
-			<li>5</li>
-			<li>6</li>
-			<li>7</li>
-			<li>8</li>
-			<li>9</li>
-		</ul> -->
-	</div>
+	<div id="number"></div>
 	
-
 
 	<script src="jquery.js"></script>
 	<script src="number.js"></script>
