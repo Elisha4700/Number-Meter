@@ -36,7 +36,6 @@ var Num = {
 			}
 		});
 
-
 	},
 
 	setDirection : function() {
@@ -122,6 +121,9 @@ var Num = {
 			speed            = ( Num.settings.animation_speed / 10 ) * number,
 			direction        = ( $this.data('dir') == 'up' ) ? '-' : '+' ;
 
+		$this.animate({'margin-top': direction + '=' + animation_height + 'px'}, speed, 'linear',function() {
+			// $this.append($("#index-1 li").slice(0,10)).css('margin-top', '0');
+		});
 
 		$this.animate({'margin-top' : direction + '=' + animation_height + 'px'}, speed, 'linear' );
 
