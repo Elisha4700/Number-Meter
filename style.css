@@ -1,8 +1,27 @@
 /* General Style */
-
 body{ color:#57AFE6;  }
 
-#number{ width: 200px; height:26px; background:#F2F2F2; padding:2px; margin:80px auto; overflow:hidden; }  
+#number{ 
+	width: 200px; 
+	height:16px; 
+	background:#F2F2F2; 
+	padding:2px; 
+	margin:200px auto; 
+	overflow:hidden; 
+}
 
-ul{ list-style:none; padding:0; margin:0; float:right; }
-ul li{ list-style:none; float:left; clear:left; font-size:32px; line-height:30px; }
+ul{ 
+	list-style:none; 
+	padding:0; 
+	margin:0; 
+	float:left;
+}
+
+ul li{ 
+	list-style:none;
+	float:left;
+	clear:left;
+	font-size:16px;
+	line-height:16px;
+	padding:0 1px;
+}
