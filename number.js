@@ -91,26 +91,27 @@ var Num = {
 		return template.replace('--index--', 'index-' + index );
 	},
 
-	startAnimating : function( loops ) {
+	// startAnimating : function( loops ) {
 
-		var $this = $('#index-1'),
-			list_height = $this.height() / 2 ;
+	// 	var $this = $('#index-1'),
+	// 		list_height = $this.height() / 2 ;
 
-		var f = function($this, count) {
+	// 	var f = function($this, count) {
 
-			$this.animate({'margin-top': '-' + list_height + 'px'}, Num.settings.animation_speed, 'linear',function() {
-				$this.append($("#index-1 li").slice(0,10)).css('margin-top', '0');
+	// 		$this.animate({'margin-top': '-' + list_height + 'px'}, Num.settings.animation_speed, 'linear',function() {
+	// 			$this.append($("#index-1 li").slice(0,10)).css('margin-top', '0');
 
-				if (count > 1) {
-					count = count - 1;
-					f($this, count);
-				}
-			});
-		};
+	// 			if (count > 1) {
+	// 				count = count - 1;
+	// 				f($this, count);
+	// 			}
+	// 		});
+	// 	};
 
-		f($this, loops );
 
-	},
+	// 	f($this, loops );
+
+	// },
 
 	animateDigit : function( $this ) {
 		var item_height      = $this.find('li').height(),
@@ -120,14 +121,36 @@ var Num = {
 			direction        = ( $this.data('dir') == 'up' ) ? '-' : '+' ;
 
 
-		$this.animate({'margin-top': direction + '=' + animation_height + 'px'}, speed, 'linear',function() {
-			// $this.append($("#index-1 li").slice(0,10)).css('margin-top', '0');
-		});
+		$this.animate({'margin-top' : direction + '=' + animation_height + 'px'}, speed, 'linear' );
 
+	}, 
+
+	loopDigit : function( $this, speed ) {
+		var item_height      = $this.find('li').height(),
+			count            = $this.attr('goto'),
+			animation_height = (number * item_height),
+			speed            = ( Num.settings.animation_speed / 10 ) * number,
+			direction        = ( $this.data('dir') == 'up' ) ? '-' : '+' ;
+
+		
+		var f = function($this, count) {
+
+			$this.animate({'margin-top': direction + '=' + animation_height + 'px'}, speed, 'linear',function() {
+				
+				if( count > 10 )
+					$this.append(  $this.find('li').slice(0,10) ).css('margin-top', '0');
+
+				if (count > 0) {
+					count -= 10;
+					f($this, count);
+				}
+			});
+		};
+
+		f( $this, count );
 	}
 
 }
 
-$(document).ready(function(){
-	Num.init();
-});
+
+$( Num.init );
