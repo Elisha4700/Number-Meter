@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-	
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
@@ -10,20 +9,22 @@
 
 	<input type="text" id="n" value="6542" />
 	<input type="button" id="ok" value="OK" />
+	<input type="checkbox" id="overflow" checked="checked" />
+	<label for="overflow">Overflow Hidden</label>
 	&nbsp;&nbsp;&nbsp;
 	<label for="speed">Speed: </label>
-	<input type="text" id="speed" value="1000" />
+	<input type="text" id="speed" value="3000" />
 	<br>
 	<br>
 
 	<label for="effect">Effect: </label>
 	<select id="effect">
-		<option value="plain" selected="selected">Plain</option>
-		<option value="meter">Meter</option>
-		<option value="equal">Equeal</option>
-		<option value="scramble">Scramble</option>
-		<option value="order">Order</option>
-		<option value="slot">Slot Machine</option>
+		<option value="plain" >Plain</option>
+		<option value="meter" selected="selected" >Meter</option>
+		<option value="equal" >Equeal</option>
+		<option value="scramble" >Scramble</option>
+		<option value="order" >Order</option>
+		<option value="slot" >Slot Machine</option>
 	</select>
 
 	<span>Direction: </span>
@@ -39,21 +40,18 @@
 	<!-- <input type="checkbox" id="add-commas" /><label for="add-commas">Add Commas</label> -->
 	<br>
 
-	<input type="text" id="n-loops" value="3" />
-	<input type="button" id="loop" value="Loop" />
+	<input type="text" id="n-loops" value="0" />
 	<br>
 
 
 	<!-- <input type="text" id="goto-n" value="5" />
 	<input type="button" id="go" value="Go To" /> -->
-	<br>
+<!-- 	<br>
 
 	<input type="button" id="reset" value="Reset" />
-
+ -->
 	<div id="number"></div>
 	
-
-
 
 	<script src="jquery.js"></script>
 	<script src="number.js"></script>

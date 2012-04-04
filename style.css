@@ -7,7 +7,7 @@ body{ color:#57AFE6;  }
 	background:#F2F2F2; 
 	padding:2px; 
 	margin:200px auto; 
-	overflow:hidden; 
+	/*overflow:hidden;*/ 
 }
 
 ul{ 
