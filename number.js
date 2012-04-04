@@ -53,21 +53,23 @@ var Num = {
 					_distance = Num.effects.Meter.calcDistance( digit_index, total_digits, digit ),
 					_direction = Num.effects.Meter.calcDirection( digit_index, total_digits, digit ),
 					_animationObj = {
-						effect : 'meter',
-						speed : _speed,
+						effect    : 'meter',
+						speed     : _speed,
 						direction : _direction,
-						distance : _distance
+						distance  : _distance
 					};
 
 				return _animationObj;
 			},
 
 			calcSpeed : function( digit_index, total_digits, digit ) {
-
+				var s = Num.settings.speed;
+				s = (s / Math.pow(10, digit_index - 1 ));
+				return Math.floor( s );
 			},
 
 			calcDistance : function( digit_index, total_digits, digit ) {
-
+				return digit + Math.pow(10, digit_index - 1 );
 			},
 
 			calcDirection : function( digit_index, total_digits, digit ) {
@@ -86,25 +88,35 @@ var Num = {
 					_distance = Num.effects.Slot.calcDistance( digit_index, total_digits, digit ),
 					_direction = Num.effects.Slot.calcDirection( digit_index, total_digits, digit ),
 					_animationObj = {
-						effect : 'slot',
-						speed : _speed,
+						effect    : 'slot',
+						speed     : _speed,
 						direction : _direction,
-						distance : _distance
+						distance  : _distance
 					};
 
 				return _animationObj;
 			},
 
 			calcSpeed : function( digit_index, total_digits, digit ) {
+				var _mod = digit_index % 3,
+					s = Num.settings.speed / 3; // will result in: 0 or 1 or 2.
+
+				if( _mod == 0 ) {
+					return Math.floor(s * 0.4) ; 
+				} else if( _mod == 1 ) {
+					return Math.floor(s * 0.75) ; 
+				}
+
+				return s;
 
 			},
 
 			calcDistance : function( digit_index, total_digits, digit ) {
-
+				return 30 + digit;
 			},
 
 			calcDirection : function( digit_index, total_digits, digit ) {
-
+				return Num.settings.direction;
 			}
 
 		},
@@ -162,7 +174,6 @@ var Num = {
 			},
 
 			calcSpeed : function( digit_index, total_digits, digit ) {
-				console.log( Num.settings.speed );
 				return Num.settings.speed;
 			},
 
@@ -195,15 +206,19 @@ var Num = {
 			},
 
 			calcSpeed : function( digit_index, total_digits, digit ) {
-
+				return Math.floor( ( Num.settings.speed / 11 ) * digit );
 			},
 
 			calcDistance : function( digit_index, total_digits, digit ) {
-
+				return digit + Math.floor(Math.random() * 10) * 10;
 			},
 
 			calcDirection : function( digit_index, total_digits, digit ) {
-
+				if( digit_index % 2 ) {
+					return 'up';
+				} else {
+					return 'down';
+				}
 			}
 
 		}
@@ -300,7 +315,7 @@ var Num = {
 			elem = $('#index-' + digit_index);
 
 			// invoking the animation on this element.
-			Num.animateDigit( elem, animationObj.distance, animationObj.speed, direction );
+			Num.animateDigit( elem, animationObj.distance, animationObj.speed, animationObj.direction );
 
 			digit_index += 1;
 		
@@ -330,7 +345,7 @@ var Num = {
 
 		var loop = function( $elem, distance ) {
 
-			var go_to = ( distance > 10 ) ? 10 : distance ;
+			var go_to = ( distance > 10 ) ? 10 : distance;
 
 			$elem.animate({'margin-top': dir + '=' + ( _elem_height * go_to ) + 'px'}, speed, 'linear', function() {
 
