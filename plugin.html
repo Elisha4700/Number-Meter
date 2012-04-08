@@ -5,16 +5,40 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+	<input type="button" id="addNumber" value="Go To">
 
-	<div id="number">6872687</div>
+	<div id="number" class="number-meter">123567489124567893</div>
+	
+	<div id="number_2" class="number-meter" >29061982</div>
+	
+	<div id="number_3" class="number-meter" >19031986</div>
 
-<script src="jquery.js"></script>
+<script src="jquery.1.4.2.js"></script>
 <script src="number.jquery.js"></script>
 <script>
 	
 	$(document).ready(function(){
 
-		$('#number').numberMeter({ speed: 1500, effect : 'equal' });
+		$n = $('#number').numberMeter({ 
+			speed: 1500, 
+			effect : 'equal',
+			seperate : true
+		});
+
+		$n2 = $('#number_2').numberMeter({ speed: 1000, effect : 'plain' });
+		
+		$n3 = $('#number_3').numberMeter({ 
+			speed: 1800, 
+			effect : 'slot', 
+			seperate : true,  
+			seperator_char : ':', 
+			seperate_every : 2 
+		});
+
+		$('#addNumber').click(function() { 
+			$n.addNumber(6);
+		});
+
 
 	});
 

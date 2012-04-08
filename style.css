@@ -1,12 +1,12 @@
 /* General Style */
 body{ color:#57AFE6;  }
 
-#number{ 
-	width: 200px; 
+.number-meter{ 
+	width: 300px; 
 	height:16px; 
 	background:#F2F2F2; 
 	padding:2px; 
-	margin:200px auto; 
+	margin:100px auto; 
 	overflow:hidden; 
 }
 
