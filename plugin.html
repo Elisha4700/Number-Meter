@@ -6,14 +6,15 @@
 </head>
 <body>
 	<input type="button" id="addNumber" value="Go To">
+	<input type="button" id="restart" value="Restart">
 
-	<div id="number" class="number-meter">123567489124567893</div>
+	<div id="number" class="number-meter">778</div>
 	
 	<div id="number_2" class="number-meter" >29061982</div>
 	
 	<div id="number_3" class="number-meter" >19031986</div>
 
-<script src="jquery.1.4.2.js"></script>
+<script src="jquery.js"></script>
 <script src="number.jquery.js"></script>
 <script>
 	
@@ -35,10 +36,16 @@
 			seperate_every : 2 
 		});
 
+
+
+
 		$('#addNumber').click(function() { 
 			$n.addNumber(6);
 		});
 
+		$('#restart').click(function(){
+			$n.restart({seperate_every : 2, seperator_char : '/'});
+		});
 
 	});
 

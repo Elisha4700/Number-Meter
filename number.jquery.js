@@ -214,7 +214,7 @@ $.fn.numberMeter = function( user_settings_obj ){
 	
 	};
 
-
+	// private static function
 	// this algorythms pushes the number right to left:
 	// the number 6358 will result in array: [8,5,3,6] - which makes it easier to pop
 	var numberToArray = function( number ) {
@@ -230,7 +230,6 @@ $.fn.numberMeter = function( user_settings_obj ){
 
 		return numbers_array;
 	};
-
 
 	this.getAnimationObject = function( digit_index, total_digits, digit, effect ) {
 
@@ -267,8 +266,8 @@ $.fn.numberMeter = function( user_settings_obj ){
 			console.log( 'The value passed was not numeric' );
 			return false;
 		}
-		
-		$(this).html('');
+			
+		$(this).attr('number', numeric_value).html('');
 
 		this._number = number;
 
@@ -297,7 +296,6 @@ $.fn.numberMeter = function( user_settings_obj ){
 	this.needsSeperator = function( digit_index ) {
 		if( !this._settings.seperate || digit_index == 0 )
 			return false;
-
 
 
 		if( (digit_index % this._settings.seperate_every) == 0 ) {
@@ -331,23 +329,17 @@ $.fn.numberMeter = function( user_settings_obj ){
 				$(this).prepend( this.getSeperator() );	
 			} 
 
-
 			// appending the element to the DOM.
 			$(this).prepend( this.getTemplate( digit_index, animationObj.direction ) );
 
 			// getting the appended element reference from the DOM.
 			elem = $('.appended');
-			elem.removeClass('appended');
+			elem.removeClass('appended').attr('digit', digit);
 
 			// invoking the animation on this element.
 			this.animateDigit( elem, animationObj.distance, animationObj.speed, animationObj.direction );
 
 			digit_index += 1;
-
-			// if( _total_digits_on_page == 'undefined' || _total_digits_on_page === undefined || _total_digits_on_page == null ) {
-			// 	_total_digits_on_page = 0;
-			// }
-
 		}
 
 	};
@@ -388,12 +380,42 @@ $.fn.numberMeter = function( user_settings_obj ){
 
 	};
 
-	this.addNumber = function( number_to_go_to ) {
-		console.log( this._digits );
-		console.log( this._digits );
+	this.addNumber = function( addition ) {
+		this._next_digits = numberToArray( this._number + addition );
+		var new_digits = this._next_digits;
+
+		$(this).find('ul').each(function(){
+			
+			var _d = new_digits.pop();
+
+			if( $(this).attr('digit') != _d )
+				console.log( _d, $(this) );
+
+		});
+
 	};
 
-	
+	this.subNumber = function( substraction ) {
+
+	};
+
+	this.restart = function( number, settings ) {
+		var _n = $(this).attr('number'),
+			_s = settings || {};
+
+
+		if( typeof number === 'string' || typeof number === 'number' ) {
+			_n = number;
+		}
+
+		if( typeof number === 'object' ) {
+			_s = number;
+		}
+
+		this.init( _n, _s );	
+	}
+
+
 	// Initialization begins
 	this.init( $(this).html(), user_settings_obj );
 
