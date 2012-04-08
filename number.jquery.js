@@ -216,7 +216,7 @@ $.fn.numberMeter = function( user_settings_obj ){
 
 	// private static function
 	// this algorythms pushes the number right to left:
-	// the number 6358 will result in array: [8,5,3,6] - which makes it easier to pop
+	// the number 6358 will result in array: [6,3,5,8] - which makes it easier to pop
 	var numberToArray = function( number ) {
 
 		var temp_number = 0,
@@ -284,13 +284,13 @@ $.fn.numberMeter = function( user_settings_obj ){
 	};
 
 	this.getTemplate = function( index, direction ) {
-		var template_up = '<ul class="index-' + index + ' appended" data-dir="up"><li>0</li><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>0</li></ul>',
-			template_down = '<ul class="index-' + index + ' appended" data-dir="down"><li>0</li><li>9</li><li>8</li><li>7</li><li>6</li><li>5</li><li>4</li><li>3</li><li>2</li><li>1</li><li>0</li></ul>';
+		var template_up = '<ul class="index-' + index + ' appended digit" data-dir="up"><li>0</li><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>0</li></ul>',
+			template_down = '<ul class="index-' + index + ' appended digit" data-dir="down"><li>0</li><li>9</li><li>8</li><li>7</li><li>6</li><li>5</li><li>4</li><li>3</li><li>2</li><li>1</li><li>0</li></ul>';
 		return ( direction == 'up' ) ? template_up : template_down ;
 	};
 
 	this.getSeperator = function( seperator ) {
-		return '<ul><li>' + this._settings.seperator_char +'</li></ul>';		
+		return '<ul class="digit-seperator"><li>' + this._settings.seperator_char +'</li></ul>';		
 	};
 
 	this.needsSeperator = function( digit_index ) {
@@ -344,54 +344,63 @@ $.fn.numberMeter = function( user_settings_obj ){
 
 	};
 
-	this.animateDigit = function( $elem, distance, speed, direction ) {
+	this.animateDigit = function( $elem, go_to_digit, speed, direction ) {
 		
 		if( typeof this._settings.onBeforeAnimateDigit === 'function' ) {
-			this._settings.onBeforeAnimateDigit( $elem, distance, speed, direction );
+			this._settings.onBeforeAnimateDigit( $elem, go_to_digit, speed, direction );
 		}
 
 		// will preform the animation algorythm - recieves the element to preform animation on and the parameters
-		var dir = (direction == 'up') ? '-' : '+',
-			_list_height = $elem.height(),
-			_elem_height = Math.floor( _list_height / 11 );
-			_element_reset = (direction == 'up') ? '0' : '-' + (_elem_height * 10)+ 'px' ;
+		var dir            = (direction == 'up') ? '-' : '+',
+			_cuurent_digit = parseInt( $elem.attr('digit') );
+			_list_height   = $elem.height(),
+			_elem_height   = Math.floor( _list_height / 11 ),
+			_element_reset = (direction == 'up') ? '0' : '-' + (_elem_height * 10) + 'px' ;
 
 		// Element Reset for starting position
 		$elem.css('margin-top', _element_reset );	
 
 
-		var loop = function( $elem, distance ) {
+		var loop = function( $elem, go_to_digit ) {
 
-			var go_to = ( distance > 10 ) ? 10 : distance;
+			var go_to = ( go_to_digit > 10 ) ? 10 : go_to_digit;
 
 			$elem.animate({'margin-top': dir + '=' + ( _elem_height * go_to ) + 'px'}, speed, 'linear', function() {
 
 				// Another loop is in order
-				if ( distance > 10 ) {
+				if ( go_to_digit > 10 ) {
 					$elem.css( 'margin-top', _element_reset );
-					distance -= 10;
-					loop( $elem, distance );
+					go_to_digit -= 10;
+					loop( $elem, go_to_digit );
 				}
 			});
 		};
 
 
-		loop( $elem, distance );
+		loop( $elem, go_to_digit );
 
 	};
 
 	this.addNumber = function( addition ) {
-		this._next_digits = numberToArray( this._number + addition );
-		var new_digits = this._next_digits;
 
-		$(this).find('ul').each(function(){
+		var new_number = this._number + addition,
+			that = this;
+
+		this._next_digits = numberToArray( new_number );
+		this._number = new_number;
+
+		$(this).attr('number', new_number)
+			.find('ul.digit').each(function(){
 			
-			var _d = new_digits.pop();
+			var _d = that._next_digits.pop();
 
-			if( $(this).attr('digit') != _d )
+			if( $(this).attr('digit') != _d ) {
 				console.log( _d, $(this) );
+				that.animateDigit( $(this), _d, that._settings.speed, that._settings.direction )
+			}
 
 		});
+
 
 	};
 
